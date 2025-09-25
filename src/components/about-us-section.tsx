@@ -1,7 +1,6 @@
 "use client"
-
+import { easeOut } from "framer-motion";
 import type React from "react"
-
 import { useState, useEffect, useRef } from "react"
 import {
   Bell,
