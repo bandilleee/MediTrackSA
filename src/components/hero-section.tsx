@@ -2,17 +2,21 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { TextureLoader, Shape, ExtrudeGeometry } from 'three';
+import * as THREE from 'three';
 
-const Box = ({ position, rotation }) => {
+interface BoxProps {
+    position: [number, number, number];
+    rotation: [number, number, number];
+}
+
+const Box: React.FC<BoxProps> = ({ position, rotation }) => {
     const shape = new Shape();
     const angleStep = Math.PI * 0.8;
     const radius = 1;
-
     shape.absarc(2, 2, radius, angleStep * 0, angleStep * 1);
     shape.absarc(-2, 2, radius, angleStep * 1, angleStep * 2);
     shape.absarc(-2, -2, radius, angleStep * 2, angleStep * 3);
     shape.absarc(2, -2, radius, angleStep * 3, angleStep * 4);
-
     const extrudeSettings = {
         depth: 0.3,
         bevelEnabled: true,
@@ -21,17 +25,15 @@ const Box = ({ position, rotation }) => {
         bevelSegments: 20,
         curveSegments: 20
     };
-
     const geometry = new ExtrudeGeometry(shape, extrudeSettings);
     geometry.center();
-
     return (
         <mesh
             geometry={geometry}
             position={position}
             rotation={rotation}
         >
-            <meshPhysicalMaterial 
+            <meshPhysicalMaterial
                 color="#2a1f3c"
                 metalness={1}
                 roughness={0.3}
@@ -63,25 +65,22 @@ const Box = ({ position, rotation }) => {
     );
 };
 
-const AnimatedBoxes = () => {
-    const groupRef = useRef();
-
+const AnimatedBoxes: React.FC = () => {
+    const groupRef = useRef<THREE.Group>(null);
     useFrame((state, delta) => {
         if (groupRef.current) {
             groupRef.current.rotation.x += delta * 0.18;
         }
     });
-
     const boxes = Array.from({ length: 50 }, (_, index) => ({
-        position: [(index - 25) * 0.75, 0, 0],
+        position: [(index - 25) * 0.75, 0, 0] as [number, number, number],
         rotation: [
             (index - 10) * 0.1,
             Math.PI / 2,
             0
-        ],
+        ] as [number, number, number],
         id: index
     }));
-
     return (
         <group ref={groupRef}>
             {boxes.map((box) => (
@@ -95,9 +94,8 @@ const AnimatedBoxes = () => {
     );
 };
 
-export const Scene = () => {
-    const [cameraPosition, setCameraPosition] = React.useState([5, 5, 20]);
-
+export const Scene: React.FC = () => {
+    const [cameraPosition, setCameraPosition] = React.useState<[number, number, number]>([5, 5, 20]);
     return (
         <div className="w-full h-full z-0">
             <Canvas camera={{ position: cameraPosition, fov: 40 }}>
