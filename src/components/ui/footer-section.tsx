@@ -160,7 +160,7 @@ function Footerdemo() {
                 <motion.a 
                   key={item}
                   href="#" 
-                  className="block transition-colors hover:text-blue-400 text-gray-300 hover:translate-x-1 transition-transform duration-200"
+                  className="block transition-all hover:text-blue-400 text-gray-300 hover:translate-x-1 duration-200"
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
