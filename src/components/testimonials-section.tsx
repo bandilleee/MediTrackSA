@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 
 type Testimonial = {
   name: string;
@@ -62,7 +62,7 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "The system’s ability to **integrate with existing APIs** like RxSolution/SVS has been seamless. This ensures our patient apps and clinic dashboards are synchronized, giving us a single, secure view of medication availability and distribution.",
+      "The system's ability to **integrate with existing APIs** like RxSolution/SVS has been seamless. This ensures our patient apps and clinic dashboards are synchronized, giving us a single, secure view of medication availability and distribution.",
     name: "Tshegofatso M.",
     role: "Integration Specialist",
     company: "IT Support Services",
@@ -127,7 +127,7 @@ export function TestimonialsSection() {
   const rotate1 = useTransform(scrollYProgress, [0, 1], [0, 20]);
   const rotate2 = useTransform(scrollYProgress, [0, 1], [0, -20]);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -138,7 +138,7 @@ export function TestimonialsSection() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
